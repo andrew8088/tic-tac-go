@@ -15,10 +15,7 @@ func TestCanConvertMovesToBoard(t *testing.T) {
 
 	for _, c := range cases {
 		actual := c.input.ToBoard()
-
-		if actual != c.expected {
-			t.Errorf("\nactual:\n%s\nexpected:\n%s", actual, c.expected)
-		}
+        Equal(t, actual, c.expected)
 	}
 }
 
@@ -35,9 +32,6 @@ func TestCanConvertMovesToString(t *testing.T) {
 
 	for _, c := range cases {
 		actual := c.input.String()
-
-		if actual != c.expected {
-			t.Errorf("\nactual:\n%s\nexpected:\n%s", actual, c.expected)
-		}
+        Equal(t, actual, c.expected)
 	}
 }
