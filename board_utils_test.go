@@ -25,3 +25,20 @@ func TestCanFormatBoards(t *testing.T) {
 	}
 
 }
+
+func TestCanDetermineTheWinner(t *testing.T) {
+	cases := []struct {
+		input    Moves
+		expected string
+	}{
+		{Moves{}, ""},
+	}
+
+	for _, c := range cases {
+		actual := FindWinner(c.input)
+
+		if actual != c.expected {
+			t.Errorf("\nactual:\n%s\nexpected:\n%s", actual, c.expected)
+		}
+	}
+}
