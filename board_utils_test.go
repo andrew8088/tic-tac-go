@@ -1,18 +1,16 @@
 package main
 
-import (
-	"testing"
-)
+import "testing"
 
 func TestCanFormatBoards(t *testing.T) {
 	cases := []struct {
 		input    Moves
 		expected string
 	}{
-		{Moves{}, "   |   |   \n   |   |   \n   |   |   "},
-		{Moves{1}, " x |   |   \n   |   |   \n   |   |   "},
-		{Moves{1, 8}, " x |   |   \n   |   |   \n   | o |   "},
-		{Moves{1, 8, 2, 3}, " x | x | o \n   |   |   \n   | o |   "},
+		{MakeMoves(), "   |   |   \n   |   |   \n   |   |   "},
+		{MakeMoves(0), " x |   |   \n   |   |   \n   |   |   "},
+		{MakeMoves(0, 7), " x |   |   \n   |   |   \n   | o |   "},
+		{MakeMoves(0, 7, 1, 2), " x | x | o \n   |   |   \n   | o |   "},
 	}
 
 	for _, c := range cases {
@@ -26,9 +24,9 @@ func TestCanDetermineTheWinner(t *testing.T) {
 		input    Moves
 		expected string
 	}{
-		{Moves{}, ""},
-		{Moves{1, 4, 2, 5, 3}, "x"},
-		{Moves{1, 4, 2, 5, 7, 6}, "o"},
+		{MakeMoves(), ""},
+		{MakeMoves(0, 3, 1, 4, 2), "x"},
+		{MakeMoves(0, 3, 1, 4, 6, 5), "o"},
 	}
 
 	for _, c := range cases {

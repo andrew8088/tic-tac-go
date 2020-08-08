@@ -4,18 +4,27 @@ import "fmt"
 
 type Moves [9]int
 
+func MakeMoves(partialMoves ...int) Moves {
+	moves := Moves{-1, -1, -1, -1, -1, -1, -1, -1, -1}
+
+	for i, m := range partialMoves {
+		moves[i] = m
+	}
+
+	return moves
+}
+
 func (m Moves) ToBoard() Board {
 	board := Board{}
 
 	for i, move := range m {
-		// zero-value, no move
-		if move == 0 {
+		if move == -1 { // not a move
 			break
 		}
 		if i%2 == 0 {
-			board[move-1] = "x"
+			board[move] = "x"
 		} else {
-			board[move-1] = "o"
+			board[move] = "o"
 		}
 	}
 	return board
@@ -25,7 +34,7 @@ func (m Moves) String() string {
 	moveStr := "["
 
 	for i, move := range m {
-		if move == 0 { // not a move
+		if move == -1 { // not a move
 			break
 		}
 
