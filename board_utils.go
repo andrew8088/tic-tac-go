@@ -35,5 +35,14 @@ func FindWinner(moves Moves) string {
 		return board[2]
 	}
 
+	// Check diagonals
+	if board[0] != "" && board[0] == board[4] && board[4] == board[8] {
+		return board[0]
+	}
+
+	if board[2] != "" && board[2] == board[4] && board[4] == board[6] {
+		return board[2]
+	}
+
 	return ""
 }
