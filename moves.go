@@ -11,9 +11,9 @@ func (m Moves) ToBoard() Board {
 			break
 		}
 		if i%2 == 0 {
-			board[move-1] = " x "
+			board[move-1] = "x"
 		} else {
-			board[move-1] = " o "
+			board[move-1] = "o"
 		}
 	}
 	return board
