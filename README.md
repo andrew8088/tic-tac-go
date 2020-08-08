@@ -7,6 +7,6 @@
 
 # TODO
 
-- [ ] print boards of varying layouts
+- [x] print boards of varying layouts
 - [ ] check games for a winner
 - [ ] play a random move
