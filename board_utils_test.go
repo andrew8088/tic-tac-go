@@ -25,8 +25,10 @@ func TestCanDetermineTheWinner(t *testing.T) {
 		expected string
 	}{
 		{MakeMoves(), ""},
+		// row wins
 		{MakeMoves(0, 3, 1, 4, 2), "x"},
 		{MakeMoves(0, 3, 1, 4, 6, 5), "o"},
+		{MakeMoves(8, 3, 7, 4, 6), "x"},
 	}
 
 	for _, c := range cases {

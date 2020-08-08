@@ -14,9 +14,8 @@ func TestCanMakeMoves(t *testing.T) {
 
 	for _, c := range cases {
 		Equal(t, c.actual, c.expected)
-    }
+	}
 }
-
 
 func TestCanConvertMovesToBoard(t *testing.T) {
 	cases := []struct {
@@ -31,7 +30,7 @@ func TestCanConvertMovesToBoard(t *testing.T) {
 
 	for _, c := range cases {
 		actual := c.input.ToBoard()
-        Equal(t, actual, c.expected)
+		Equal(t, actual, c.expected)
 	}
 }
 
@@ -48,6 +47,6 @@ func TestCanConvertMovesToString(t *testing.T) {
 
 	for _, c := range cases {
 		actual := c.input.String()
-        Equal(t, actual, c.expected)
+		Equal(t, actual, c.expected)
 	}
 }
