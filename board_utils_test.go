@@ -11,13 +11,14 @@ func TestCanFormatBoards(t *testing.T) {
 	}{
 		{[9]int{}, "   |   |   \n   |   |   \n   |   |   "},
 		{[9]int{1}, " x |   |   \n   |   |   \n   |   |   "},
+		{[9]int{1, 8}, " x |   |   \n   |   |   \n   | o |   "},
 	}
 
 	for _, c := range cases {
 		actual := FormatBoard(c.input)
 
 		if actual != c.expected {
-			t.Errorf("actual:\n%s\nexpected:\n%s", actual, c.expected)
+			t.Errorf("\nactual:\n%s\nexpected:\n%s", actual, c.expected)
 		}
 
 	}
