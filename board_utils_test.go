@@ -12,6 +12,7 @@ func TestCanFormatBoards(t *testing.T) {
 		{[9]int{}, "   |   |   \n   |   |   \n   |   |   "},
 		{[9]int{1}, " x |   |   \n   |   |   \n   |   |   "},
 		{[9]int{1, 8}, " x |   |   \n   |   |   \n   | o |   "},
+		{[9]int{1, 8, 2, 3}, " x | x | o \n   |   |   \n   | o |   "},
 	}
 
 	for _, c := range cases {
