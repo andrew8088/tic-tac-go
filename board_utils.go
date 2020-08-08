@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func FormatBoard(moves [9]int) string {
+func FormatBoard(moves Moves) string {
 	board := Board{}
 
 	for i, move := range moves {

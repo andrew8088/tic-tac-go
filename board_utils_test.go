@@ -6,13 +6,13 @@ import (
 
 func TestCanFormatBoards(t *testing.T) {
 	cases := []struct {
-		input    [9]int
+		input    Moves
 		expected string
 	}{
-		{[9]int{}, "   |   |   \n   |   |   \n   |   |   "},
-		{[9]int{1}, " x |   |   \n   |   |   \n   |   |   "},
-		{[9]int{1, 8}, " x |   |   \n   |   |   \n   | o |   "},
-		{[9]int{1, 8, 2, 3}, " x | x | o \n   |   |   \n   | o |   "},
+		{Moves{}, "   |   |   \n   |   |   \n   |   |   "},
+		{Moves{1}, " x |   |   \n   |   |   \n   |   |   "},
+		{Moves{1, 8}, " x |   |   \n   |   |   \n   | o |   "},
+		{Moves{1, 8, 2, 3}, " x | x | o \n   |   |   \n   | o |   "},
 	}
 
 	for _, c := range cases {
