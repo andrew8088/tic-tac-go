@@ -8,5 +8,7 @@
 # TODO
 
 - [x] print boards of varying layouts
-- [ ] check games for a winner
+- [x] check games for a winner
 - [ ] play a random move
+- [ ] identify "win in one" layouts
+- [ ] play a strategic move
