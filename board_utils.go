@@ -3,19 +3,5 @@ package main
 import "fmt"
 
 func FormatBoard(moves Moves) string {
-	board := Board{}
-
-	for i, move := range moves {
-		// zero-value, no move
-		if move == 0 {
-			break
-		}
-		if i%2 == 0 {
-			board[move-1] = " x "
-		} else {
-			board[move-1] = " o "
-		}
-	}
-
-	return fmt.Sprintf("%s", board)
+	return fmt.Sprintf("%s", moves.ToBoard())
 }
