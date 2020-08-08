@@ -10,6 +10,7 @@ func TestCanFormatBoards(t *testing.T) {
 		expected string
 	}{
 		{[9]int{}, "   |   |   \n   |   |   \n   |   |   "},
+		{[9]int{1}, " x |   |   \n   |   |   \n   |   |   "},
 	}
 
 	for _, c := range cases {
