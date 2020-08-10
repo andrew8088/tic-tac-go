@@ -2,6 +2,10 @@ package main
 
 import "fmt"
 
+func main () {
+	fmt.Println("tttapi")
+}
+
 func FormatBoard(moves Moves) string {
 	return fmt.Sprintf("%s", moves.ToBoard())
 }
