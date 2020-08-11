@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main () {
+func main() {
 	fmt.Println("tttapi")
 }
 
@@ -39,4 +39,15 @@ func FindWinner(moves Moves) string {
 	}
 
 	return ""
+}
+
+func PlayRandomMove(moves Moves) Moves {
+	for i, m := range moves {
+		if m == -1 {
+			moves[i] = 3
+			break
+		}
+	}
+
+	return moves
 }
