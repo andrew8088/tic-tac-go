@@ -9,6 +9,6 @@
 
 - [x] print boards of varying layouts
 - [x] check games for a winner
-- [ ] play a random move
+- [x] play a random move
 - [ ] identify "win in one" layouts
 - [ ] play a strategic move
