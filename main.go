@@ -75,3 +75,7 @@ func contains(moves Moves, item int) bool {
 	}
 	return false
 }
+
+func FindBlockingMove(moves Moves) int {
+	return 1
+}

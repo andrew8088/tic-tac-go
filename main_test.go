@@ -62,3 +62,17 @@ func TestCanAddAMove(t *testing.T) {
 		Equal(t, actual, c.expected)
 	}
 }
+
+func TestCanFindBlockingMoves(t *testing.T) {
+	cases := []struct {
+		input Moves
+		expected int
+	}{
+		{MakeMoves(0, 8, 2), 1},
+	}
+
+	for _, c := range cases {
+		actual := FindBlockingMove(c.input)
+		Equal(t, actual, c.expected)
+	}
+}
