@@ -53,6 +53,8 @@ func TestCanAddAMove(t *testing.T) {
 		{1, MakeMoves(0, 1, 2), MakeMoves(0, 1, 2, 5)},
 		{1, MakeMoves(), MakeMoves(5)},
 		{1, MakeMoves(0, 1, 2, 3, 4, 5, 6, 7, 8), MakeMoves(0, 1, 2, 3, 4, 5, 6, 7, 8)},
+		{1, MakeMoves(5), MakeMoves(5, 6)},
+		{1, MakeMoves(0, 1, 2, 3, 4, 5, 6, 7), MakeMoves(0, 1, 2, 3, 4, 5, 6, 7, 8)},
 	}
 
 	for _, c := range cases {

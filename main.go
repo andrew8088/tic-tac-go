@@ -47,12 +47,31 @@ func FindWinner(moves Moves) string {
 func PlayRandomMove(seed int64, moves Moves) Moves {
 	rand.Seed(seed)
 
+	if !contains(moves, -1) {
+		return moves // game is complete
+	}
+
+	newMove := rand.Intn(9)
+
+	for contains(moves, newMove) {
+		newMove = rand.Intn(9)
+	}
+
 	for i, m := range moves {
 		if m == -1 {
-			moves[i] = rand.Intn(9)
+			moves[i] = newMove
 			break
 		}
 	}
 
 	return moves
+}
+
+func contains(moves Moves, item int) bool {
+	for _, m := range moves {
+		if m == item {
+			return true
+		}
+	}
+	return false
 }
