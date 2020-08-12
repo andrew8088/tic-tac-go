@@ -46,16 +46,17 @@ func TestCanDetermineTheWinner(t *testing.T) {
 
 func TestCanAddAMove(t *testing.T) {
 	cases := []struct {
+		seed     int64
 		input    Moves
 		expected Moves
 	}{
-		{MakeMoves(0, 1, 2), MakeMoves(0, 1, 2, 3)},
-		{MakeMoves(), MakeMoves(3)},
-		{MakeMoves(0, 1, 2, 3, 4, 5, 6, 7, 8), MakeMoves(0, 1, 2, 3, 4, 5, 6, 7, 8)},
+		{1, MakeMoves(0, 1, 2), MakeMoves(0, 1, 2, 5)},
+		{1, MakeMoves(), MakeMoves(5)},
+		{1, MakeMoves(0, 1, 2, 3, 4, 5, 6, 7, 8), MakeMoves(0, 1, 2, 3, 4, 5, 6, 7, 8)},
 	}
 
 	for _, c := range cases {
-		actual := PlayRandomMove(c.input)
+		actual := PlayRandomMove(c.seed, c.input)
 		Equal(t, actual, c.expected)
 	}
 }

@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+)
 
 func main() {
 	fmt.Println("tttapi")
@@ -41,10 +44,12 @@ func FindWinner(moves Moves) string {
 	return ""
 }
 
-func PlayRandomMove(moves Moves) Moves {
+func PlayRandomMove(seed int64, moves Moves) Moves {
+	rand.Seed(seed)
+
 	for i, m := range moves {
 		if m == -1 {
-			moves[i] = 3
+			moves[i] = rand.Intn(9)
 			break
 		}
 	}
