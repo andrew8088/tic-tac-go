@@ -9,12 +9,12 @@ func main() {
 	fmt.Println("tttapi")
 }
 
-func FormatBoard(moves Moves) string {
-	return fmt.Sprintf("%s", moves.ToBoard())
+func FormatBoard(game Game) string {
+	return fmt.Sprintf("%s", game.ToBoard())
 }
 
-func FindWinner(moves Moves) string {
-	board := moves.ToBoard()
+func FindWinner(game Game) string {
+	board := game.ToBoard()
 	lines := allLines(board)
 
 	for _, line := range lines {
@@ -26,35 +26,35 @@ func FindWinner(moves Moves) string {
 	return ""
 }
 
-func PlayRandomMove(seed int64, moves Moves) Moves {
+func PlayRandomMove(seed int64, game Game) Game {
 	rand.Seed(seed)
 
-	if !contains(moves, -1) {
-		return moves // game is complete
+	if !contains(game, -1) {
+		return game // game is complete
 	}
 
-	newMove := rand.Intn(9)
+	move := rand.Intn(9)
 
-	for contains(moves, newMove) {
-		newMove = rand.Intn(9)
+	for contains(game, move) {
+		move = rand.Intn(9)
 	}
 
-	for i, m := range moves {
+	for i, m := range game {
 		if m == -1 {
-			moves[i] = newMove
+			game[i] = move
 			break
 		}
 	}
 
-	return moves
+	return game
 }
 
-func FindBlockingMove(moves Moves) int {
+func FindBlockingMove(game Game) int {
 	return 1
 }
 
-func contains(moves Moves, item int) bool {
-	for _, m := range moves {
+func contains(game Game, item int) bool {
+	for _, m := range game {
 		if m == item {
 			return true
 		}

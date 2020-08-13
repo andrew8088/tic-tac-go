@@ -4,13 +4,13 @@ import "testing"
 
 func TestCanFormatBoards(t *testing.T) {
 	cases := []struct {
-		input    Moves
+		input    Game
 		expected string
 	}{
-		{MakeMoves(), "   |   |   \n   |   |   \n   |   |   "},
-		{MakeMoves(0), " x |   |   \n   |   |   \n   |   |   "},
-		{MakeMoves(0, 7), " x |   |   \n   |   |   \n   | o |   "},
-		{MakeMoves(0, 7, 1, 2), " x | x | o \n   |   |   \n   | o |   "},
+		{MakeGame(), "   |   |   \n   |   |   \n   |   |   "},
+		{MakeGame(0), " x |   |   \n   |   |   \n   |   |   "},
+		{MakeGame(0, 7), " x |   |   \n   |   |   \n   | o |   "},
+		{MakeGame(0, 7, 1, 2), " x | x | o \n   |   |   \n   | o |   "},
 	}
 
 	for _, c := range cases {
@@ -21,21 +21,21 @@ func TestCanFormatBoards(t *testing.T) {
 
 func TestCanDetermineTheWinner(t *testing.T) {
 	cases := []struct {
-		input    Moves
+		input    Game
 		expected string
 	}{
-		{MakeMoves(), ""},
+		{MakeGame(), ""},
 		// row wins
-		{MakeMoves(0, 3, 1, 4, 2), "x"},
-		{MakeMoves(0, 3, 1, 4, 6, 5), "o"},
-		{MakeMoves(8, 3, 7, 4, 6), "x"},
+		{MakeGame(0, 3, 1, 4, 2), "x"},
+		{MakeGame(0, 3, 1, 4, 6, 5), "o"},
+		{MakeGame(8, 3, 7, 4, 6), "x"},
 		// columns wins
-		{MakeMoves(0, 1, 3, 4, 6), "x"},
-		{MakeMoves(0, 1, 8, 4, 6, 7), "o"},
-		{MakeMoves(2, 0, 5, 1, 8), "x"},
+		{MakeGame(0, 1, 3, 4, 6), "x"},
+		{MakeGame(0, 1, 8, 4, 6, 7), "o"},
+		{MakeGame(2, 0, 5, 1, 8), "x"},
 		// diagonal wins
-		{MakeMoves(0, 1, 4, 1, 8), "x"},
-		{MakeMoves(0, 2, 1, 4, 8, 6), "o"},
+		{MakeGame(0, 1, 4, 1, 8), "x"},
+		{MakeGame(0, 2, 1, 4, 8, 6), "o"},
 	}
 
 	for _, c := range cases {
@@ -47,14 +47,14 @@ func TestCanDetermineTheWinner(t *testing.T) {
 func TestCanAddAMove(t *testing.T) {
 	cases := []struct {
 		seed     int64
-		input    Moves
-		expected Moves
+		input    Game
+		expected Game
 	}{
-		{1, MakeMoves(0, 1, 2), MakeMoves(0, 1, 2, 5)},
-		{1, MakeMoves(), MakeMoves(5)},
-		{1, MakeMoves(0, 1, 2, 3, 4, 5, 6, 7, 8), MakeMoves(0, 1, 2, 3, 4, 5, 6, 7, 8)},
-		{1, MakeMoves(5), MakeMoves(5, 6)},
-		{1, MakeMoves(0, 1, 2, 3, 4, 5, 6, 7), MakeMoves(0, 1, 2, 3, 4, 5, 6, 7, 8)},
+		{1, MakeGame(0, 1, 2), MakeGame(0, 1, 2, 5)},
+		{1, MakeGame(), MakeGame(5)},
+		{1, MakeGame(0, 1, 2, 3, 4, 5, 6, 7, 8), MakeGame(0, 1, 2, 3, 4, 5, 6, 7, 8)},
+		{1, MakeGame(5), MakeGame(5, 6)},
+		{1, MakeGame(0, 1, 2, 3, 4, 5, 6, 7), MakeGame(0, 1, 2, 3, 4, 5, 6, 7, 8)},
 	}
 
 	for _, c := range cases {
@@ -65,10 +65,10 @@ func TestCanAddAMove(t *testing.T) {
 
 func TestCanFindBlockingMoves(t *testing.T) {
 	cases := []struct {
-		input    Moves
+		input    Game
 		expected int
 	}{
-		{MakeMoves(0, 8, 2), 1},
+		{MakeGame(0, 8, 2), 1},
 	}
 
 	for _, c := range cases {
