@@ -15,30 +15,12 @@ func FormatBoard(moves Moves) string {
 
 func FindWinner(moves Moves) string {
 	board := moves.ToBoard()
+	lines := allLines(board)
 
-	// Check rows
-	startOfRows := []int{0, 3, 6}
-	for _, i := range startOfRows {
-		if board[i] != "" && enoughMatch(3, board[i], board[i+1], board[i+2]) {
-			return board[i]
+	for _, line := range lines {
+		if line[0] != "" && enoughMatches(3, line[:]...) {
+			return line[0]
 		}
-	}
-
-	// Check columns
-	startOfColumns := []int{0, 1, 2}
-	for _, i := range startOfColumns {
-		if board[i] != "" && enoughMatch(3, board[i], board[i+3], board[i+6]) {
-			return board[i]
-		}
-	}
-
-	// Check diagonals
-	if board[0] != "" && enoughMatch(3, board[0], board[4], board[8]) {
-		return board[0]
-	}
-
-	if board[2] != "" && enoughMatch(3, board[2], board[4], board[6]) {
-		return board[2]
 	}
 
 	return ""
@@ -80,7 +62,7 @@ func contains(moves Moves, item int) bool {
 	return false
 }
 
-func enoughMatch(minMatchingCount int, items ...string) bool {
+func enoughMatches(minMatchingCount int, items ...string) bool {
 	matchingCount := 0
 
 	for _, item := range items {
@@ -90,4 +72,30 @@ func enoughMatch(minMatchingCount int, items ...string) bool {
 	}
 
 	return matchingCount == minMatchingCount
+}
+
+func allLines(board Board) [8][3]string {
+	lines := [8][3]string{}
+	idx := 0
+
+	// rows
+	startOfRows := []int{0, 3, 6}
+	for _, i := range startOfRows {
+		lines[idx] = [3]string{board[i], board[i+1], board[i+2]}
+		idx += 1
+	}
+
+	// columns
+	startOfColumns := []int{0, 1, 2}
+	for _, i := range startOfColumns {
+		lines[idx] = [3]string{board[i], board[i+3], board[i+6]}
+		idx += 1
+	}
+
+	// diagonals
+	lines[idx] = [3]string{board[0], board[4], board[8]}
+	idx += 1
+	lines[idx] = [3]string{board[2], board[4], board[6]}
+
+	return lines
 }
