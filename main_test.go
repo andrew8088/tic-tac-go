@@ -65,7 +65,7 @@ func TestCanAddAMove(t *testing.T) {
 
 func TestCanFindBlockingMoves(t *testing.T) {
 	cases := []struct {
-		input Moves
+		input    Moves
 		expected int
 	}{
 		{MakeMoves(0, 8, 2), 1},

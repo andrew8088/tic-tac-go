@@ -19,7 +19,7 @@ func FindWinner(moves Moves) string {
 	// Check rows
 	startOfRows := []int{0, 3, 6}
 	for _, i := range startOfRows {
-		if board[i] != "" && board[i] == board[i+1] && board[i+1] == board[i+2] {
+		if board[i] != "" && enoughMatch(3, board[i], board[i+1], board[i+2]) {
 			return board[i]
 		}
 	}
@@ -27,17 +27,17 @@ func FindWinner(moves Moves) string {
 	// Check columns
 	startOfColumns := []int{0, 1, 2}
 	for _, i := range startOfColumns {
-		if board[i] != "" && board[i] == board[i+3] && board[i+3] == board[i+6] {
+		if board[i] != "" && enoughMatch(3, board[i], board[i+3], board[i+6]) {
 			return board[i]
 		}
 	}
 
 	// Check diagonals
-	if board[0] != "" && board[0] == board[4] && board[4] == board[8] {
+	if board[0] != "" && enoughMatch(3, board[0], board[4], board[8]) {
 		return board[0]
 	}
 
-	if board[2] != "" && board[2] == board[4] && board[4] == board[6] {
+	if board[2] != "" && enoughMatch(3, board[2], board[4], board[6]) {
 		return board[2]
 	}
 
@@ -67,6 +67,10 @@ func PlayRandomMove(seed int64, moves Moves) Moves {
 	return moves
 }
 
+func FindBlockingMove(moves Moves) int {
+	return 1
+}
+
 func contains(moves Moves, item int) bool {
 	for _, m := range moves {
 		if m == item {
@@ -76,6 +80,14 @@ func contains(moves Moves, item int) bool {
 	return false
 }
 
-func FindBlockingMove(moves Moves) int {
-	return 1
+func enoughMatch(minMatchingCount int, items ...string) bool {
+	matchingCount := 0
+
+	for _, item := range items {
+		if items[0] == item {
+			matchingCount++
+		}
+	}
+
+	return matchingCount == minMatchingCount
 }
