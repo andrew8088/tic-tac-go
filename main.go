@@ -14,12 +14,15 @@ func FormatBoard(game Game) string {
 }
 
 func FindWinner(game Game) string {
-	board := game.ToBoard()
-	lines := allLines(board)
+	lines := allLines(game)
 
 	for _, line := range lines {
-		if line[0] != "" && enoughMatches(3, line[:]...) {
-			return line[0]
+		if allMovesBySamePlayer(line.indices) {
+			if line.indices[0]%2 == 0 {
+				return "x"
+			} else {
+				return "o"
+			}
 		}
 	}
 
@@ -62,40 +65,44 @@ func contains(game Game, item int) bool {
 	return false
 }
 
-func enoughMatches(minMatchingCount int, items ...string) bool {
-	matchingCount := 0
-
-	for _, item := range items {
-		if items[0] == item {
-			matchingCount++
-		}
-	}
-
-	return matchingCount == minMatchingCount
-}
-
-func allLines(board Board) [8][3]string {
-	lines := [8][3]string{}
+func allLines(game Game) [8]Line {
+	board := game.ToBoard()
+	lines := [8]Line{}
 	idx := 0
 
 	// rows
 	startOfRows := []int{0, 3, 6}
 	for _, i := range startOfRows {
-		lines[idx] = [3]string{board[i], board[i+1], board[i+2]}
+		lines[idx] = Line{
+			[3]int{board[i], board[i+1], board[i+2]},
+		}
 		idx += 1
 	}
 
 	// columns
 	startOfColumns := []int{0, 1, 2}
 	for _, i := range startOfColumns {
-		lines[idx] = [3]string{board[i], board[i+3], board[i+6]}
+		lines[idx] = Line{
+			[3]int{board[i], board[i+3], board[i+6]},
+		}
 		idx += 1
 	}
 
 	// diagonals
-	lines[idx] = [3]string{board[0], board[4], board[8]}
+	lines[idx] = Line{
+		[3]int{board[0], board[4], board[8]},
+	}
 	idx += 1
-	lines[idx] = [3]string{board[2], board[4], board[6]}
+	lines[idx] = Line{
+		[3]int{board[2], board[4], board[6]},
+	}
 
 	return lines
+}
+
+func allMovesBySamePlayer(indices [3]int) bool {
+	mod1 := indices[0] % 2
+	mod2 := indices[1] % 2
+	mod3 := indices[2] % 2
+	return mod1 == mod2 && mod2 == mod3 && mod1 != -1
 }

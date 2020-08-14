@@ -15,17 +15,14 @@ func MakeGame(partialGame ...int) Game {
 }
 
 func (g Game) ToBoard() Board {
-	board := Board{}
+	board := Board{-1, -1, -1, -1, -1, -1, -1, -1, -1}
 
 	for i, move := range g {
 		if move == -1 { // not a move
 			break
 		}
-		if i%2 == 0 {
-			board[move] = "x"
-		} else {
-			board[move] = "o"
-		}
+
+		board[move] = i
 	}
 	return board
 }

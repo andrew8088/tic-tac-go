@@ -22,10 +22,10 @@ func TestCanConvertGameToBoard(t *testing.T) {
 		input    Game
 		expected Board
 	}{
-		{MakeGame(), Board{}},
-		{MakeGame(0), Board{"x"}},
-		{MakeGame(0, 7), Board{"x", "", "", "", "", "", "", "o", ""}},
-		{MakeGame(0, 7, 1, 2), Board{"x", "x", "o", "", "", "", "", "o", ""}},
+		{MakeGame(), Board{-1, -1, -1, -1, -1, -1, -1, -1, -1}},
+		{MakeGame(0), Board{0, -1, -1, -1, -1, -1, -1, -1, -1}},
+		{MakeGame(0, 7), Board{0, -1, -1, -1, -1, -1, -1, 1, -1}},
+		{MakeGame(0, 7, 1, 2), Board{0, 2, 3, -1, -1, -1, -1, 1, -1}},
 	}
 
 	for _, c := range cases {
