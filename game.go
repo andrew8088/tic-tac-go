@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+)
 
 type Game [9]int
 
@@ -92,6 +95,51 @@ func (game Game) Winner() int {
 	for _, line := range lines {
 		if allMovesBySamePlayer(line.indices) {
 			return line.indices[0] % 2
+		}
+	}
+
+	return -1
+}
+
+func (game Game) GetRandomMove(seed int64) int {
+	rand.Seed(seed)
+
+	if !Contains(game[:], -1) {
+		return -1 // game is complete
+	}
+
+	move := rand.Intn(9)
+
+	for Contains(game[:], move) {
+		move = rand.Intn(9)
+	}
+
+	return move
+}
+
+func (game Game) GetBlockingMove() int {
+	lines := game.Lines()
+
+	for _, line := range lines {
+		mod1 := line.indices[0] % 2
+		mod2 := line.indices[1] % 2
+		mod3 := line.indices[2] % 2
+
+		if All(line.indices[:], GetIsNum(-1)) {
+			continue
+		}
+
+		if mod1 == mod2 && mod3 == -1 {
+			return line.moves[2]
+		}
+
+		if mod1 == mod3 && mod2 == -1 {
+			return line.moves[1]
+
+		}
+
+		if mod2 == mod3 && mod1 == -1 {
+			return line.moves[0]
 		}
 	}
 
