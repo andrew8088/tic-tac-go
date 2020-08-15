@@ -9,10 +9,6 @@ func main() {
 	fmt.Println("tttapi")
 }
 
-func FormatBoard(game Game) string {
-	return fmt.Sprintf("%s", game.ToBoard())
-}
-
 func FindWinner(game Game) string {
 	lines := allLines(game)
 

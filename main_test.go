@@ -14,7 +14,7 @@ func TestCanFormatBoards(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		actual := FormatBoard(c.input)
+		actual := c.input.ToBoard().String()
 		Equal(t, actual, c.expected)
 	}
 }
