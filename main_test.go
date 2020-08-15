@@ -72,6 +72,13 @@ func TestCanFindBlockingMoves(t *testing.T) {
 		{MakeGame(0, 8, 2), 1},
 		{MakeGame(3, 0, 4), 5},
 		{MakeGame(7, 0, 8), 6},
+		// columns
+		{MakeGame(0, 1, 6), 3},
+		{MakeGame(0, 1, 2, 4), 7},
+		{MakeGame(2, 0, 8), 5},
+		// diagonal
+		{MakeGame(4, 1, 8), 0},
+		{MakeGame(2, 5, 6), 4},
 	}
 
 	for _, c := range cases {
