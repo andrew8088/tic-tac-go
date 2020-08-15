@@ -9,22 +9,6 @@ func main() {
 	fmt.Println("tttapi")
 }
 
-func FindWinner(game Game) string {
-	lines := game.Lines()
-
-	for _, line := range lines {
-		if allMovesBySamePlayer(line.indices) {
-			if line.indices[0]%2 == 0 {
-				return "x"
-			} else {
-				return "o"
-			}
-		}
-	}
-
-	return ""
-}
-
 func PlayRandomMove(seed int64, game Game) Game {
 	rand.Seed(seed)
 
@@ -75,13 +59,6 @@ func FindBlockingMove(game Game) int {
 	}
 
 	return -1
-}
-
-func allMovesBySamePlayer(indices [3]int) bool {
-	mod1 := indices[0] % 2
-	mod2 := indices[1] % 2
-	mod3 := indices[2] % 2
-	return mod1 == mod2 && mod2 == mod3 && mod1 != -1
 }
 
 func getIsNum(num1 int) func(int) bool {

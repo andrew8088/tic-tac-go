@@ -50,3 +50,31 @@ func TestCanConvertGameToString(t *testing.T) {
 		Equal(t, actual, c.expected)
 	}
 }
+
+func TestCanDetermineTheWinner(t *testing.T) {
+	const X = 0
+	const O = 1
+
+	cases := []struct {
+		input    Game
+		expected int
+	}{
+		{MakeGame(), -1},
+		// row wins
+		{MakeGame(0, 3, 1, 4, 2), X},
+		{MakeGame(0, 3, 1, 4, 6, 5), O},
+		{MakeGame(8, 3, 7, 4, 6), X},
+		// columns wins
+		{MakeGame(0, 1, 3, 4, 6), X},
+		{MakeGame(0, 1, 8, 4, 6, 7), O},
+		{MakeGame(2, 0, 5, 1, 8), X},
+		// diagonal wins
+		{MakeGame(0, 1, 4, 1, 8), X},
+		{MakeGame(0, 2, 1, 4, 8, 6), O},
+	}
+
+	for _, c := range cases {
+		actual := c.input.Winner()
+		Equal(t, actual, c.expected)
+	}
+}
