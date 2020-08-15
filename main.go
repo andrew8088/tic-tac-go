@@ -28,13 +28,13 @@ func FindWinner(game Game) string {
 func PlayRandomMove(seed int64, game Game) Game {
 	rand.Seed(seed)
 
-	if !contains(game, -1) {
+	if !contains(game[:], -1) {
 		return game // game is complete
 	}
 
 	move := rand.Intn(9)
 
-	for contains(game, move) {
+	for contains(game[:], move) {
 		move = rand.Intn(9)
 	}
 
@@ -56,7 +56,7 @@ func FindBlockingMove(game Game) int {
 		mod2 := line.indices[1] % 2
 		mod3 := line.indices[2] % 2
 
-		if all(line.indices[:], isNegOne) {
+		if all(line.indices[:], getIsNum(-1)) {
 			continue
 		}
 
@@ -75,15 +75,6 @@ func FindBlockingMove(game Game) int {
 	}
 
 	return -1
-}
-
-func contains(game Game, item int) bool {
-	for _, m := range game {
-		if m == item {
-			return true
-		}
-	}
-	return false
 }
 
 func allLines(game Game) [8]Line {
@@ -132,13 +123,15 @@ func allMovesBySamePlayer(indices [3]int) bool {
 	return mod1 == mod2 && mod2 == mod3 && mod1 != -1
 }
 
-func isNegOne(num int) bool {
-	return num == -1
+func getIsNum(num1 int) func(int) bool {
+	return func (num2 int) bool {
+		return num1 == num2
+	}
 }
 
-type Predicate func(int) bool
+type predicate func(int) bool
 
-func any(arr []int, predicate Predicate) bool {
+func any(arr []int, predicate predicate) bool {
 	for _, m := range arr {
 		if predicate(m) {
 			return true
@@ -147,7 +140,7 @@ func any(arr []int, predicate Predicate) bool {
 	return false
 }
 
-func all(arr []int, predicate Predicate) bool {
+func all(arr []int, predicate predicate) bool {
 	for _, m := range arr {
 		if !predicate(m) {
 			return false
@@ -155,3 +148,8 @@ func all(arr []int, predicate Predicate) bool {
 	}
 	return true
 }
+
+func contains(arr []int, item int) bool {
+	return any(arr, getIsNum(item))
+}
+
