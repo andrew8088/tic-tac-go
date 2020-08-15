@@ -10,7 +10,7 @@ func main() {
 }
 
 func FindWinner(game Game) string {
-	lines := allLines(game)
+	lines := game.Lines()
 
 	for _, line := range lines {
 		if allMovesBySamePlayer(line.indices) {
@@ -49,7 +49,7 @@ func PlayRandomMove(seed int64, game Game) Game {
 }
 
 func FindBlockingMove(game Game) int {
-	lines := allLines(game)
+	lines := game.Lines()
 
 	for _, line := range lines {
 		mod1 := line.indices[0] % 2
@@ -77,45 +77,6 @@ func FindBlockingMove(game Game) int {
 	return -1
 }
 
-func allLines(game Game) [8]Line {
-	board := game.ToBoard()
-	lines := [8]Line{}
-	idx := 0
-
-	// rows
-	startOfRows := []int{0, 3, 6}
-	for _, i := range startOfRows {
-		lines[idx] = Line{
-			[3]int{i, i + 1, i + 2},
-			[3]int{board[i], board[i+1], board[i+2]},
-		}
-		idx += 1
-	}
-
-	// columns
-	startOfColumns := []int{0, 1, 2}
-	for _, i := range startOfColumns {
-		lines[idx] = Line{
-			[3]int{i, i + 3, i + 6},
-			[3]int{board[i], board[i+3], board[i+6]},
-		}
-		idx += 1
-	}
-
-	// diagonals
-	lines[idx] = Line{
-		[3]int{0, 4, 8},
-		[3]int{board[0], board[4], board[8]},
-	}
-	idx += 1
-	lines[idx] = Line{
-		[3]int{2, 4, 6},
-		[3]int{board[2], board[4], board[6]},
-	}
-
-	return lines
-}
-
 func allMovesBySamePlayer(indices [3]int) bool {
 	mod1 := indices[0] % 2
 	mod2 := indices[1] % 2
@@ -124,7 +85,7 @@ func allMovesBySamePlayer(indices [3]int) bool {
 }
 
 func getIsNum(num1 int) func(int) bool {
-	return func (num2 int) bool {
+	return func(num2 int) bool {
 		return num1 == num2
 	}
 }
@@ -152,4 +113,3 @@ func all(arr []int, predicate predicate) bool {
 func contains(arr []int, item int) bool {
 	return any(arr, getIsNum(item))
 }
-
